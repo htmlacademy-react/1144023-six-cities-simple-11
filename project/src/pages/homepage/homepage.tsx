@@ -1,13 +1,17 @@
 import Header from '../../components/header/header';
 import Card from '../../components/card/card';
+import { Helmet } from 'react-helmet-async';
 
 type HomePageProps = {
-    offerCount: number;
+  offerCount: number;
 }
 
-function HomePage({offerCount}:HomePageProps): JSX.Element {
+function HomePage({ offerCount }: HomePageProps): JSX.Element {
   return (
     <div className='page page--gray page--main'>
+      <Helmet>
+        <title>Главная страница: Лучший выбор аренды</title>
+      </Helmet>
       <Header />
       <main className='page__main page__main--index'>
         <h1 className='visually-hidden'>Cities</h1>

@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
 import Header from '../../components/header/header';
 import { AppRoute } from '../../const';
+import { Helmet } from 'react-helmet-async';
 
 function Offer(): JSX.Element {
   return (
     <div className='page'>
+      <Helmet>
+        <title>Предложение аренды</title>
+      </Helmet>
       <Header />
       <main className='page__main page__main--property'>
         <section className='property'>

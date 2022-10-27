@@ -1,9 +1,13 @@
+import { Helmet } from 'react-helmet-async';
 import HeaderSvg from '../../components/header/header-svg';
 import Logo from '../../components/logo/Logo';
 
 function Login(): JSX.Element {
   return (
     <div className='page page--gray page--login'>
+      <Helmet>
+        <title>Необходимо авторизоваться</title>
+      </Helmet>
       <HeaderSvg />
       <header className='header'>
         <div className='container'>

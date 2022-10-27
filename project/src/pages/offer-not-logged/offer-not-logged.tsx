@@ -1,10 +1,13 @@
+import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 
 function RentItemNotLogged(): JSX.Element {
   return (
     <div className='page'>
+      <Helmet>
+        <title>Предложение аренды</title>
+      </Helmet>
       <Header />
-
       <main className='page__main page__main--property'>
         <section className='property'>
           <div className='property__gallery-container container'>

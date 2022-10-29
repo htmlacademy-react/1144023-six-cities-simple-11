@@ -7,11 +7,11 @@ const root = ReactDOM.createRoot(
 );
 
 const Setting = {
-  RentItemCount: 5,
+  OfferCount: 5,
 } as const;
 
 root.render(
   <React.StrictMode>
-    <App rentItemCount = {Setting.RentItemCount}/>
+    <App offerCount = {Setting.OfferCount}/>
   </React.StrictMode>,
 );

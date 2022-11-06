@@ -1,12 +1,14 @@
 import Header from '../../components/header/header';
-import Card from '../../components/card/card';
+import List from '../../components/list/list';
 import { Helmet } from 'react-helmet-async';
+import { OfferType } from '../../types/offer';
 
 type HomePageProps = {
-  offerCount: number;
+  errorsCount: number;
+  offers:OfferType[];
 }
 
-function HomePage({ offerCount }: HomePageProps): JSX.Element {
+function HomePage({ errorsCount, offers}: HomePageProps): JSX.Element {
   return (
     <div className='page page--gray page--main'>
       <Helmet>
@@ -55,7 +57,7 @@ function HomePage({ offerCount }: HomePageProps): JSX.Element {
           <div className='cities__places-container container'>
             <section className='cities__places places'>
               <h2 className='visually-hidden'>Places</h2>
-              <b className='places__found'>{offerCount} places to stay in Amsterdam</b>
+              <b className='places__found'>{errorsCount} places to stay in Amsterdam</b>
               <form className='places__sorting' action='#' method='get'>
                 <span className='places__sorting-caption'>Sort by</span>
                 <span className='places__sorting-type' tabIndex={0}>
@@ -82,13 +84,7 @@ function HomePage({ offerCount }: HomePageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <div className='cities__places-list places__list tabs__content'>
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-              </div>
+              <List offers={offers}/>
             </section>
             <div className='cities__right-section'>
               <section className='cities__map map'></section>

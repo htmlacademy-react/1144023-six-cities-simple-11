@@ -8,22 +8,18 @@ import { HelmetProvider } from 'react-helmet-async';
 import { OfferType } from '../../types/offer';
 
 type AppScreenProps = {
-  errorsCount: number;
   offers: OfferType[];
 };
 
-function App({ errorsCount, offers }: AppScreenProps): JSX.Element {
+function App({ offers }: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route
-            path={AppRoute.Main}
-            element={<HomePage errorsCount={errorsCount} offers={offers} />}
-          />
+          <Route path={AppRoute.Main} element={<HomePage offers={offers} />} />
           <Route path={AppRoute.Login} element={<Login />} />
           <Route path={`${AppRoute.Room}/:id`} element={<Room />} />
-          <Route path='*' element={<Page404 />} />
+          <Route path="*" element={<Page404 />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>

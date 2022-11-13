@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import HeaderSvg from '../../components/header/header-svg';
-import Logo from '../../components/logo/Logo';
+import Logo from '../../components/logo/logo';
 
 function Login(): JSX.Element {
   return (

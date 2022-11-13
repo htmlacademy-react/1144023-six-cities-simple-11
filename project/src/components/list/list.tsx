@@ -1,13 +1,14 @@
-import { useState } from 'react';
 import Card from '../../components/card/card';
 import { OfferType } from '../../types/offer';
 
 type ListProps = {
   offers: OfferType[];
+  onMouseCardEnter:(id:number) => void;
+  onMouseCardLeave:() => void;
+  activeCardId:number | null;
 };
 
-function List({ offers }: ListProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState<number | null>();
+function List({ offers, onMouseCardEnter, onMouseCardLeave, activeCardId}: ListProps): JSX.Element {
 
   return (
     <div className='cities__places-list places__list tabs__content'>
@@ -15,13 +16,9 @@ function List({ offers }: ListProps): JSX.Element {
         <Card
           hotel={offer}
           key={offer.id}
-          handleCardMouseOver={() => {
-            setActiveCard(offer.id);
-          }}
-          handleCardMouseOut={() => {
-            setActiveCard(null);
-          }}
-          isActive={offer.id === activeCard}
+          handleCardMouseEnter={onMouseCardEnter}
+          handleCardMouseLeave={onMouseCardLeave}
+          isActive={offer.id === activeCardId}
         />
       ))}
     </div>

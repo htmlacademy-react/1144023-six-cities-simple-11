@@ -8,12 +8,11 @@ const root = ReactDOM.createRoot(
 );
 
 const Setting = {
-  errorsCount: 5,
   offers:offers
 } as const;
 
 root.render(
   <React.StrictMode>
-    <App errorsCount = {Setting.errorsCount} offers={Setting.offers}/>
+    <App offers={Setting.offers}/>
   </React.StrictMode>,
 );

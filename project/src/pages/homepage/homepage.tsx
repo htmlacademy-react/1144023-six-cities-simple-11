@@ -2,13 +2,27 @@ import Header from '../../components/header/header';
 import List from '../../components/list/list';
 import { Helmet } from 'react-helmet-async';
 import { OfferType } from '../../types/offer';
+import Map from '../../components/map/map';
+import { CITY } from '../../mocks/city';
+import { useState } from 'react';
 
 type HomePageProps = {
-  errorsCount: number;
-  offers:OfferType[];
-}
+  offers: OfferType[];
+};
 
-function HomePage({ errorsCount, offers}: HomePageProps): JSX.Element {
+function HomePage({ offers }: HomePageProps): JSX.Element {
+  const [activeCardId, setActiveCardId] = useState<number | null>(null);
+  const [activeCard, setActiveCard] = useState<OfferType | undefined>();
+
+  const handleMouseEnter = (offerId: number | null) => {
+    setActiveCardId(offerId);
+    setActiveCard(offers.find((x) => x.id === activeCardId));
+  };
+  const handleMouseLeave = () => {
+    setActiveCardId(null);
+    setActiveCard(undefined);
+  };
+
   return (
     <div className='page page--gray page--main'>
       <Helmet>
@@ -57,7 +71,9 @@ function HomePage({ errorsCount, offers}: HomePageProps): JSX.Element {
           <div className='cities__places-container container'>
             <section className='cities__places places'>
               <h2 className='visually-hidden'>Places</h2>
-              <b className='places__found'>{errorsCount} places to stay in Amsterdam</b>
+              <b className='places__found'>
+                {offers.length} places to stay in Amsterdam
+              </b>
               <form className='places__sorting' action='#' method='get'>
                 <span className='places__sorting-caption'>Sort by</span>
                 <span className='places__sorting-type' tabIndex={0}>
@@ -84,10 +100,20 @@ function HomePage({ errorsCount, offers}: HomePageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <List offers={offers}/>
+              <List
+                offers={offers}
+                onMouseCardEnter={handleMouseEnter}
+                onMouseCardLeave={handleMouseLeave}
+                activeCardId={activeCardId}
+              />
             </section>
             <div className='cities__right-section'>
-              <section className='cities__map map'></section>
+              <Map
+                city={CITY}
+                offers={offers}
+                activeOffer={activeCard}
+                heightMap={794}
+              />
             </div>
           </div>
         </div>

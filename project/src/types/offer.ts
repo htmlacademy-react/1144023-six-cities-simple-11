@@ -8,8 +8,8 @@ export type OfferType = {
     description?:string;
     location:{
         city:string;
-        latitude?:number;
-        longitude?:number;
+        latitude:number;
+        longitude:number;
         address:string;
     };
     isPremium:boolean;

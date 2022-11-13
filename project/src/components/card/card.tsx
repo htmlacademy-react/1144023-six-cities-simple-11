@@ -6,24 +6,24 @@ import cn from 'classnames';
 
 type CardProps = {
   hotel: OfferType;
-  handleCardMouseOver: (id: number) => void;
-  handleCardMouseOut: () => void;
+  handleCardMouseEnter: (id: number) => void;
+  handleCardMouseLeave: () => void;
   isActive: boolean;
 };
 
 function Card({
   hotel,
-  handleCardMouseOver,
-  handleCardMouseOut,
+  handleCardMouseEnter,
+  handleCardMouseLeave,
   isActive,
 }: CardProps): JSX.Element {
   return (
     <article
       className={cn('cities__card place-card', { active: isActive })}
       id={`hotel-${hotel.id}`}
-      onMouseOver={(event: MouseEvent<HTMLElement>) =>
-        handleCardMouseOver(hotel.id)}
-      onMouseOut={(event: MouseEvent<HTMLElement>) => handleCardMouseOut()}
+      onMouseEnter={(event: MouseEvent<HTMLElement>) =>
+        handleCardMouseEnter(hotel.id)}
+      onMouseLeave={(event: MouseEvent<HTMLElement>) => handleCardMouseLeave()}
     >
       {hotel.isPremium && (
         <div className='place-card__mark'>

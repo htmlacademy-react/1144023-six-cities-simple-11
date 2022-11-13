@@ -1,4 +1,4 @@
-import Logo from '../logo/Logo';
+import Logo from '../logo/logo';
 import HeaderSvg from './header-svg';
 
 function Header(): JSX.Element {

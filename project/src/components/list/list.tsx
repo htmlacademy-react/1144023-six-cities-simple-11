@@ -3,25 +3,28 @@ import { OfferType } from '../../types/offer';
 
 type ListProps = {
   offers: OfferType[];
-  onMouseCardEnter:(id:number) => void;
-  onMouseCardLeave:() => void;
+  onMouseCardEnter?:(id:number) => void;
+  onMouseCardLeave?:() => void;
   activeCardId:number | null;
+  cardClassName:string;
 };
 
-function List({ offers, onMouseCardEnter, onMouseCardLeave, activeCardId}: ListProps): JSX.Element {
+function List(props: ListProps): JSX.Element {
+  const { offers, onMouseCardEnter, onMouseCardLeave, activeCardId, cardClassName} = props;
 
   return (
-    <div className='cities__places-list places__list tabs__content'>
+    <>
       {offers.map((offer) => (
         <Card
-          hotel={offer}
+          offer={offer}
           key={offer.id}
           handleCardMouseEnter={onMouseCardEnter}
           handleCardMouseLeave={onMouseCardLeave}
           isActive={offer.id === activeCardId}
+          cardClassName={cardClassName}
         />
       ))}
-    </div>
+    </>
   );
 }
 

@@ -4,12 +4,14 @@ import { useEffect, useRef } from 'react';
 import useMap from '../../hooks/useMap';
 import { CityType } from '../../types/city';
 import { OfferType } from '../../types/offer';
+import cn from 'classnames';
 
 type MapProps = {
   city: CityType;
   offers: OfferType[];
-  activeOffer: OfferType | undefined;
-  heightMap:number;
+  activeOfferId: number | null;
+  mapHeight?: number;
+  mapClassName: string;
 };
 
 const defaultCustomIcon = new Icon({
@@ -24,33 +26,49 @@ const activeCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-function Map({ city, offers, activeOffer, heightMap }: MapProps): JSX.Element {
+function Map({
+  city,
+  offers,
+  activeOfferId,
+  mapHeight,
+  mapClassName,
+}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
   useEffect(() => {
-    if (map) {
+    const markers: Marker[] = [];
+
+    map &&
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude,
         });
 
+        markers.push(marker);
+
         marker
           .setIcon(
-            activeOffer !== undefined && offer.id === activeOffer.id
+            activeOfferId !== null && offer.id === activeOfferId
               ? activeCustomIcon
               : defaultCustomIcon
           )
           .addTo(map);
       });
-    }
-  }, [map, offers, activeOffer]);
+
+    return () => {
+      map &&
+        markers.forEach((value) => {
+          value.removeFrom(map);
+        });
+    };
+  }, [map, offers, activeOfferId]);
 
   return (
     <section
-      className='cities__map map'
-      style={{ height: `${heightMap}px` }}
+      className={cn('map', mapClassName)}
+      style={mapHeight ? { height: `${mapHeight}px` } : undefined}
       ref={mapRef}
     >
     </section>

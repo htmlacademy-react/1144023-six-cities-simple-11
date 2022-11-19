@@ -12,15 +12,12 @@ type HomePageProps = {
 
 function HomePage({ offers }: HomePageProps): JSX.Element {
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
-  const [activeCard, setActiveCard] = useState<OfferType | undefined>();
 
   const handleMouseEnter = (offerId: number | null) => {
     setActiveCardId(offerId);
-    setActiveCard(offers.find((x) => x.id === activeCardId));
   };
   const handleMouseLeave = () => {
     setActiveCardId(null);
-    setActiveCard(undefined);
   };
 
   return (
@@ -100,19 +97,23 @@ function HomePage({ offers }: HomePageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <List
-                offers={offers}
-                onMouseCardEnter={handleMouseEnter}
-                onMouseCardLeave={handleMouseLeave}
-                activeCardId={activeCardId}
-              />
+              <div className='cities__places-list places__list tabs__content'>
+                <List
+                  offers={offers}
+                  onMouseCardEnter={handleMouseEnter}
+                  onMouseCardLeave={handleMouseLeave}
+                  activeCardId={activeCardId}
+                  cardClassName = "cities"
+                />
+              </div>
             </section>
             <div className='cities__right-section'>
               <Map
                 city={CITY}
                 offers={offers}
-                activeOffer={activeCard}
-                heightMap={794}
+                activeOfferId={activeCardId}
+                mapHeight={794}
+                mapClassName='cities__map'
               />
             </div>
           </div>

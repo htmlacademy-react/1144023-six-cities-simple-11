@@ -1,4 +1,6 @@
 import { OfferType } from '../types/offer';
+import { getRandomAvatar } from '../const';
+
 
 export const offers:OfferType[] = [
   {
@@ -20,7 +22,7 @@ export const offers:OfferType[] = [
     host:{
       name:'Angelina',
       isPro:true,
-      avatar:'img/avatar-angelina.jpg'
+      avatar:getRandomAvatar()
     },
     amenities:['Heating', 'Toilet', 'Wifi']
   },
@@ -43,7 +45,7 @@ export const offers:OfferType[] = [
     host:{
       name:'Havier',
       isPro:false,
-      avatar:'img/avatar-max.jpg'
+      avatar:getRandomAvatar()
     },
     amenities:['Terrace', 'Swimming pool', 'Wifi','City view','Balcony','Bathtub']
   },
@@ -66,7 +68,7 @@ export const offers:OfferType[] = [
     host:{
       name:'Klaus',
       isPro:true,
-      avatar:'img/avatar-max.jpg'
+      avatar:getRandomAvatar()
     },
     amenities:['Parking', ' Pet friendly', 'Tea/Coffee Maker','Non-smoking rooms',' Bar']
   },
@@ -89,7 +91,7 @@ export const offers:OfferType[] = [
     host:{
       name:'Louis',
       isPro:true,
-      avatar:'img/avatar-max.jpg'
+      avatar:getRandomAvatar()
     },
     amenities:['Airport shuttle', ' Pet friendly', 'WiFi','Non-smoking rooms','Facilities for disabled guests']
   }

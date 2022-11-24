@@ -39,7 +39,7 @@ function Map({
   useEffect(() => {
     const markers: Marker[] = [];
 
-    map &&
+    if (map) {
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
@@ -57,13 +57,16 @@ function Map({
           .addTo(map);
       });
 
+      map.setView([city.latitude, city.longitude], city.zoom);
+    }
+
     return () => {
       map &&
         markers.forEach((value) => {
           value.removeFrom(map);
         });
     };
-  }, [map, offers, activeOfferId]);
+  }, [map, city, offers, activeOfferId]);
 
   return (
     <section

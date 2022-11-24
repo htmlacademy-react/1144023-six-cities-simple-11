@@ -1,5 +1,5 @@
 import { ReviewType } from '../types/review';
-import { getRandomAvatar } from '../const';
+import { getRandomAvatar } from '../utils/utils';
 
 export const reviews: ReviewType[] = [
   {

@@ -6,14 +6,22 @@ import { useState } from 'react';
 import CityMenu from '../../components/city-menu/city-menu';
 import useAppSelector from '../../hooks/useAppSelector';
 import cn from 'classnames';
+import Sorting from '../../components/sorting/sorting';
+import { sortOffers } from '../../utils/sort-offers';
+// import { useEffect } from 'react';
+// import useAppDispatch from '../../hooks/useAppDispatch';
+// import { showOffersAction } from '../../store/action';
 
 function HomePage(): JSX.Element {
+  // const dispatch = useAppDispatch();
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
   const currentCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
-  const currentCityOffers = offers.filter(
+  let currentCityOffers = offers.filter(
     (offer) => offer.city.name === currentCity.name
   );
+  const currentSortOffersBy = useAppSelector((state) => state.sortOffersBy);
+  currentCityOffers = sortOffers(currentCityOffers, currentSortOffersBy);
 
   const handleMouseEnter = (offerId: number | null) => {
     setActiveCardId(offerId);
@@ -22,8 +30,21 @@ function HomePage(): JSX.Element {
     setActiveCardId(null);
   };
 
+  //SORT WITH useEFFect and dispatch => error
+  /* useEffect(() => {
+    dispatch(showOffersAction(sortOffers(currentCityOffers,currentSortOffersBy)));
+ },[currentCityOffers,currentSortOffersBy, dispatch]);
+ */
+  /*Uncaught Error: Maximum update depth exceeded.
+  This can happen when a component repeatedly calls setState inside componentWillUpdate or componentDidUpdate.
+React limits the number of nested updates to prevent infinite loops.*/
+
   return (
-    <div className={cn('page page--gray page--main',{'page__main--index-empty':!currentCityOffers.length})}>
+    <div
+      className={cn('page page--gray', 'page--main', {
+        'page__main--index-empty': !currentCityOffers.length,
+      })}
+    >
       <Helmet>
         <title>Home page: Best rent choice in {currentCity.name}</title>
       </Helmet>
@@ -44,32 +65,7 @@ function HomePage(): JSX.Element {
                   {currentCityOffers.length} places to stay in{' '}
                   {currentCity.name}
                 </b>
-                <form className='places__sorting' action='#' method='get'>
-                  <span className='places__sorting-caption'>Sort by</span>
-                  <span className='places__sorting-type' tabIndex={0}>
-                    Popular
-                    <svg className='places__sorting-arrow' width='7' height='4'>
-                      <use xlinkHref='#icon-arrow-select'></use>
-                    </svg>
-                  </span>
-                  <ul className='places__options places__options--custom places__options--opened'>
-                    <li
-                      className='places__option places__option--active'
-                      tabIndex={0}
-                    >
-                      Popular
-                    </li>
-                    <li className='places__option' tabIndex={0}>
-                      Price: low to high
-                    </li>
-                    <li className='places__option' tabIndex={0}>
-                      Price: high to low
-                    </li>
-                    <li className='places__option' tabIndex={0}>
-                      Top rated first
-                    </li>
-                  </ul>
-                </form>
+                <Sorting />
                 <div className='cities__places-list places__list tabs__content'>
                   <List
                     offers={currentCityOffers}

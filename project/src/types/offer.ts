@@ -1,23 +1,33 @@
 export type OfferType = {
-    id:number;
-    title:string;
-    type:string;
-    price:number;
-    rating:number;
-    images:string[];
-    description?:string;
-    location:{
-        city:string;
-        latitude:number;
-        longitude:number;
-        address:string;
+  bedrooms: number;
+  city: {
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
     };
-    isPremium:boolean;
-    maxAdults:number;
-    host:{
-        name:string;
-        isPro:boolean;
-        avatar?:string;
-    };
-    amenities?:string[];
+    name: string;
+  };
+  description: string;
+  goods: string[];
+  host: {
+    avatarUrl: string;
+    id: number;
+    isPro: boolean;
+    name: string;
+  };
+  id: number;
+  images: string[];
+  isPremium: boolean;
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+  maxAdults: number;
+  previewImage: string;
+  price: number;
+  rating: number;
+  title: string;
+  type: string;
 }

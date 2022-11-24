@@ -2,16 +2,17 @@ import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import { Helmet } from 'react-helmet-async';
 import ReviewForm from '../../components/review-form/review-form';
-import { offers } from '../../mocks/offers';
+// import { offers } from '../../mocks/offers';
 import Page404 from '../page404/page404';
 import ReviewList from '../../components/review-list/review-list';
 import { reviews as mockReviews } from '../../mocks/reviews';
 // import { ReviewType } from '../../types/review';
 import { OfferType } from '../../types/offer';
 import Map from '../../components/map/map';
-import { CITY } from '../../mocks/city';
+// import { cities } from '../../mocks/cities';
 import List from '../../components/list/list';
 import cn from 'classnames';
+import useAppSelector from '../../hooks/useAppSelector';
 
 type RoomProps = {
   // reviews: ReviewType[];
@@ -21,7 +22,10 @@ type RoomProps = {
 function Room(props: RoomProps): JSX.Element {
   const { id } = useParams();
 
-  const current: OfferType | undefined = offers.find(
+  const currentCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
+  const currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+  const current: OfferType | undefined = currentCityOffers.find(
     (offer) => offer.id === Number(id)
   );
 
@@ -29,7 +33,7 @@ function Room(props: RoomProps): JSX.Element {
     return <Page404 />;
   }
 
-  const offersNearby = offers
+  const offersNearby = currentCityOffers
     .filter((offer) => offer.id !== Number(id))
     .slice(0, 3);
   const offersNearbyWithCurrent = offersNearby.concat(current);
@@ -37,7 +41,7 @@ function Room(props: RoomProps): JSX.Element {
   return (
     <div className="page">
       <Helmet>
-        <title>Предложение аренды: {current.location.address} </title>
+        <title>Rent offer in {current.city.name} </title>
       </Helmet>
       <Header />
       <main className="page__main page__main--property">
@@ -92,9 +96,9 @@ function Room(props: RoomProps): JSX.Element {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {current.amenities?.map((amenity) => (
-                    <li key={amenity} className="property__inside-item">
-                      {amenity}
+                  {current.goods?.map((good) => (
+                    <li key={good} className="property__inside-item">
+                      {good}
                     </li>
                   ))}
                 </ul>
@@ -109,10 +113,10 @@ function Room(props: RoomProps): JSX.Element {
                       'user__avatar-wrapper'
                     )}
                   >
-                    {current.host.avatar !== '' && (
+                    {current.host.avatarUrl !== '' && (
                       <img
                         className="property__avatar user__avatar"
-                        src={current.host.avatar}
+                        src={current.host.avatarUrl}
                         width="74"
                         height="74"
                         alt="Host avatar"
@@ -141,7 +145,7 @@ function Room(props: RoomProps): JSX.Element {
             </div>
           </div>
           <Map
-            city={CITY}
+            city={currentCity}
             offers={offersNearbyWithCurrent}
             activeOfferId={Number(id)}
             mapClassName="property__map"

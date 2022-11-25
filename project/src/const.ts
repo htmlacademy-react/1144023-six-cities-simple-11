@@ -10,7 +10,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum sortingOptions {
+export enum SortingOptions {
   POPULAR = 'Popular',
   PRICE_ASC = 'Price: low to high',
   PRICE_DESC = 'Price: high to low',

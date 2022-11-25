@@ -6,11 +6,7 @@ import Room from '../../pages/room/room';
 import Page404 from '../../pages/page404/page404';
 import { HelmetProvider } from 'react-helmet-async';
 
-type AppScreenProps = {
-  // offers: OfferType[];
-};
-
-function App(props:AppScreenProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>

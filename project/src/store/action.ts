@@ -3,17 +3,22 @@ import { CityType } from '../types/city';
 import { OfferType } from '../types/offer';
 
 
-export const changeCityAction = createAction(
-  'changeCity',
+export const setCityAction = createAction(
+  'setCity',
   (value: CityType) => ({ payload: value })
 );
 
-export const showOffersAction = createAction(
-  'showOffers',
+export const setOffersAction = createAction(
+  'setOffers',
   (value: OfferType[]) => ({ payload: value })
 );
 
 export const setSortOffersByAction = createAction(
   'sortOffersBy',
   (sortingOption:string) => ({ payload: sortingOption })
+);
+
+export const setIsLoadingAction = createAction(
+  'setIsLoading',
+  (value: boolean) => ({ payload: value })
 );

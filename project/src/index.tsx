@@ -3,14 +3,13 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { store } from './store';
 import { Provider } from 'react-redux';
+import { fetchOffersAction } from './store/api-actions';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-// const Setting = {
-//   offers: offers,
-// } as const;
+store.dispatch(fetchOffersAction());
 
 root.render(
   <React.StrictMode>

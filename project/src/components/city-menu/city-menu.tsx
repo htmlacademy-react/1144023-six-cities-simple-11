@@ -5,7 +5,7 @@ import { cities } from '../../mocks/cities';
 import { CityType } from '../../types/city';
 import cn from 'classnames';
 import { AppRoute } from '../../const';
-import { changeCityAction } from '../../store/action';
+import { setCityAction } from '../../store/action';
 
 type CityMenuProps = {
   currentCity: CityType;
@@ -20,7 +20,7 @@ function CityMenu({ currentCity }: CityMenuProps): JSX.Element {
     city: CityType
   ) => {
     event.preventDefault();
-    dispatch(changeCityAction(city));
+    dispatch(setCityAction(city));
   };
 
   return (

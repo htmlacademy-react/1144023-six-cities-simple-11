@@ -6,54 +6,53 @@ import ReviewForm from '../../components/review-form/review-form';
 import Page404 from '../page404/page404';
 import ReviewList from '../../components/review-list/review-list';
 import { reviews as mockReviews } from '../../mocks/reviews';
-// import { ReviewType } from '../../types/review';
+import { getRatingWidth } from '../../utils/utils';
 import { OfferType } from '../../types/offer';
 import Map from '../../components/map/map';
-// import { cities } from '../../mocks/cities';
 import List from '../../components/list/list';
 import cn from 'classnames';
 import useAppSelector from '../../hooks/useAppSelector';
 
+
 type RoomProps = {
-  // reviews: ReviewType[];
-  // offers: OfferType[];
+   // offers: OfferType[];
 };
 
 function Room(props: RoomProps): JSX.Element {
-  const { id } = useParams();
 
-  const currentCity = useAppSelector((state) => state.city);
+  const { id } = useParams();
   const offers = useAppSelector((state) => state.offers);
+  const currentCity = useAppSelector((state) => state.city);
   const currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
-  const current: OfferType | undefined = currentCityOffers.find(
+  const currentOffer: OfferType | undefined = currentCityOffers.find(
     (offer) => offer.id === Number(id)
   );
 
-  if (!current) {
+  if (!currentOffer) {
     return <Page404 />;
   }
 
   const offersNearby = currentCityOffers
     .filter((offer) => offer.id !== Number(id))
     .slice(0, 3);
-  const offersNearbyWithCurrent = offersNearby.concat(current);
+  const offersNearbyWithCurrent = [...offersNearby, currentOffer];
 
   return (
     <div className="page">
       <Helmet>
-        <title>Rent offer in {current.city.name} </title>
+        <title>Rent offer in {currentOffer.city.name} </title>
       </Helmet>
       <Header />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {current.images.map((img) => (
+              {currentOffer.images.map((img) => (
                 <div className="property__image-wrapper" key={img}>
                   <img
                     className="property__image"
                     src={img}
-                    alt={current.title}
+                    alt={currentOffer.title}
                   />
                 </div>
               ))}
@@ -61,42 +60,42 @@ function Room(props: RoomProps): JSX.Element {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {current.isPremium && (
+              {currentOffer.isPremium && (
                 <div className="property__mark">
                   <span>Premium</span>
                 </div>
               )}
               <div className="property__name-wrapper">
-                <h1 className="property__name">{current.title}</h1>
+                <h1 className="property__name">{currentOffer.title}</h1>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{ width: `${current.rating * 100}%` }}></span>
+                  <span style={{ width: getRatingWidth(currentOffer.rating) }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">
-                  {current.rating * 5}
+                  {currentOffer.rating}
                 </span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {current.type}
+                  {currentOffer.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {current.maxAdults} Bedrooms
+                  {currentOffer.maxAdults} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {current.maxAdults} adults
+                  Max {currentOffer.maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;{current.price}</b>
+                <b className="property__price-value">&euro;{currentOffer.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {current.goods?.map((good) => (
+                  {currentOffer.goods?.map((good) => (
                     <li key={good} className="property__inside-item">
                       {good}
                     </li>
@@ -109,14 +108,14 @@ function Room(props: RoomProps): JSX.Element {
                   <div
                     className={cn(
                       'property__avatar-wrapper',
-                      { 'property__avatar-wrapper--pro': current.host.isPro },
+                      { 'property__avatar-wrapper--pro': currentOffer.host.isPro },
                       'user__avatar-wrapper'
                     )}
                   >
-                    {current.host.avatarUrl !== '' && (
+                    {currentOffer.host.avatarUrl !== '' && (
                       <img
                         className="property__avatar user__avatar"
-                        src={current.host.avatarUrl}
+                        src={currentOffer.host.avatarUrl}
                         width="74"
                         height="74"
                         alt="Host avatar"
@@ -124,14 +123,14 @@ function Room(props: RoomProps): JSX.Element {
                     )}
                   </div>
                   <span className="property__user-name">
-                    {current.host.name}
+                    {currentOffer.host.name}
                   </span>
-                  {current.host.isPro && (
+                  {currentOffer.host.isPro && (
                     <span className="property__user-status">Pro</span>
                   )}
                 </div>
                 <div className="property__description">
-                  <p className="property__text">{current.description}</p>
+                  <p className="property__text">{currentOffer.description}</p>
                 </div>
               </div>
               <section className="property__reviews reviews">

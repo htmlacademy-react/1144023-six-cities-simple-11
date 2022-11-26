@@ -1,8 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCityAction, showOffersAction, setSortOffersByAction } from './action';
-import { cities } from '../mocks/cities';
-import { offers } from '../mocks/offers';
-import { sortingOptions } from '../const';
+import { setCityAction, setOffersAction, setSortOffersByAction, setIsLoadingAction} from './action';
+import { Cities } from '../const';
+import { SortingOptions } from '../const';
 import { CityType } from '../types/city';
 import { OfferType } from '../types/offer';
 
@@ -10,24 +9,29 @@ type StateProps = {
   city: CityType;
   offers: OfferType[];
   sortOffersBy:string;
+  isLoading:boolean;
 }
 
 const initialState:StateProps = {
-  city: cities[0],
-  offers: offers.filter((offer) => offer.city.name !== cities[2].name), // exclude Brussels to show empty results
-  sortOffersBy:sortingOptions.POPULAR as string
+  city: Cities[0],
+  offers:[],
+  sortOffersBy:SortingOptions.POPULAR as string,
+  isLoading:false
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(changeCityAction, (state, action) => {
+    .addCase(setCityAction, (state, action) => {
       state.city = action.payload;
     })
-    .addCase(showOffersAction, (state, action) => {
+    .addCase(setOffersAction, (state, action) => {
       state.offers = action.payload;
     })
     .addCase(setSortOffersByAction, (state, action) => {
       state.sortOffersBy = action.payload;
+    })
+    .addCase(setIsLoadingAction, (state, action) => {
+      state.isLoading = action.payload;
     });
 });
 

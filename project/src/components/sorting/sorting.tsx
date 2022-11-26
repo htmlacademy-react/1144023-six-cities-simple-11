@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { sortingOptions } from '../../const';
+import { SortingOptions } from '../../const';
 import useAppSelector from '../../hooks/useAppSelector';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import cn from 'classnames';
@@ -11,12 +11,12 @@ function Sorting(): JSX.Element {
   const [isSortOpen, setSortOpen] = useState<boolean>(false);
 
   return (
-    <form className="places__sorting" action="#" method="get" onClick={()=>setSortOpen(!isSortOpen)}>
-      <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={0}>
+    <form className='places__sorting' action='#' method='get' onClick={()=>setSortOpen(!isSortOpen)}>
+      <span className='places__sorting-caption'>Sort by&nbsp;</span>
+      <span className='places__sorting-type' tabIndex={0}>
         {activeSortOffersBy}
-        <svg className="places__sorting-arrow" width="7" height="4">
-          <use xlinkHref="#icon-arrow-select"></use>
+        <svg className='places__sorting-arrow' width='7' height='4'>
+          <use xlinkHref='#icon-arrow-select'></use>
         </svg>
       </span>
       <ul
@@ -24,7 +24,7 @@ function Sorting(): JSX.Element {
           'places__options--opened': isSortOpen,
         })}
       >
-        {Object.entries(sortingOptions).map(([key, value]) => (
+        {Object.entries(SortingOptions).map(([key, value]) => (
           <li
             className={cn('places__option', {
               'places__option--active': value === activeSortOffersBy,

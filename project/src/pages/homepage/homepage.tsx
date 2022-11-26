@@ -8,12 +8,10 @@ import useAppSelector from '../../hooks/useAppSelector';
 import cn from 'classnames';
 import Sorting from '../../components/sorting/sorting';
 import { sortOffers } from '../../utils/sort-offers';
-// import { useEffect } from 'react';
-// import useAppDispatch from '../../hooks/useAppDispatch';
-// import { showOffersAction } from '../../store/action';
+import Preloader from '../../components/preloader/preloader';
 
 function HomePage(): JSX.Element {
-  // const dispatch = useAppDispatch();
+  const isLoading = useAppSelector((state) => state.isLoading);
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
   const currentCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
@@ -30,15 +28,6 @@ function HomePage(): JSX.Element {
     setActiveCardId(null);
   };
 
-  //SORT WITH useEFFect and dispatch => error
-  /* useEffect(() => {
-    dispatch(showOffersAction(sortOffers(currentCityOffers,currentSortOffersBy)));
- },[currentCityOffers,currentSortOffersBy, dispatch]);
- */
-  /*Uncaught Error: Maximum update depth exceeded.
-  This can happen when a component repeatedly calls setState inside componentWillUpdate or componentDidUpdate.
-React limits the number of nested updates to prevent infinite loops.*/
-
   return (
     <div
       className={cn('page page--gray', 'page--main', {
@@ -48,6 +37,7 @@ React limits the number of nested updates to prevent infinite loops.*/
       <Helmet>
         <title>Home page: Best rent choice in {currentCity.name}</title>
       </Helmet>
+      {isLoading && <Preloader />}
       <Header />
       <main className='page__main page__main--index'>
         <h1 className='visually-hidden'>Cities</h1>

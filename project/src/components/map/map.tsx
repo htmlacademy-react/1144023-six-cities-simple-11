@@ -57,7 +57,7 @@ function Map({
           .addTo(map);
       });
 
-      map.setView([city.latitude, city.longitude], city.zoom);
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
     }
 
     return () => {

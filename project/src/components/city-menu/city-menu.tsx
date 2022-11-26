@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import { MouseEvent } from 'react';
-import { cities } from '../../mocks/cities';
+import { Cities } from '../../const';
 import { CityType } from '../../types/city';
 import cn from 'classnames';
 import { AppRoute } from '../../const';
-import { changeCityAction } from '../../store/action';
+import { setCityAction } from '../../store/action';
 
 type CityMenuProps = {
   currentCity: CityType;
@@ -20,12 +20,12 @@ function CityMenu({ currentCity }: CityMenuProps): JSX.Element {
     city: CityType
   ) => {
     event.preventDefault();
-    dispatch(changeCityAction(city));
+    dispatch(setCityAction(city));
   };
 
   return (
     <ul className='locations__list tabs__list'>
-      {cities.map((city) => (
+      {Cities.map((city) => (
         <li className='locations__item' key={`city-${city.name}`}>
           <Link
             className={cn('locations__item-link tabs__item', {

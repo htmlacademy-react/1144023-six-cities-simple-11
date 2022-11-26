@@ -3,6 +3,7 @@ import { AppRoute } from '../../const';
 import { OfferType } from '../../types/offer';
 import { MouseEvent } from 'react';
 import cn from 'classnames';
+import { getRatingWidth } from '../../utils/utils';
 
 type CardProps = {
   offer: OfferType;
@@ -54,7 +55,7 @@ function Card({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${offer.rating * 100}%` }}></span>
+            <span style={{ width: getRatingWidth(offer.rating) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

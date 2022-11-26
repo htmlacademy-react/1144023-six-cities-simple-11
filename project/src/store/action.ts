@@ -2,18 +2,22 @@ import { createAction } from '@reduxjs/toolkit';
 import { CityType } from '../types/city';
 import { OfferType } from '../types/offer';
 
-
-export const changeCityAction = createAction(
-  'changeCity',
+export const setCityAction = createAction(
+  'offer/setCity',
   (value: CityType) => ({ payload: value })
 );
 
-export const showOffersAction = createAction(
-  'showOffers',
+export const setOffersAction = createAction(
+  'offer/setOffers',
   (value: OfferType[]) => ({ payload: value })
 );
 
 export const setSortOffersByAction = createAction(
-  'sortOffersBy',
+  'offer/sortOffersBy',
   (sortingOption:string) => ({ payload: sortingOption })
+);
+
+export const setIsLoadingAction = createAction(
+  'offer/setIsLoading',
+  (value: boolean) => ({ payload: value })
 );

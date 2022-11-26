@@ -1,20 +1,23 @@
-import {sortingOptions} from '../const';
-import {OfferType} from '../types/offer';
+import { SortingOptions } from '../const';
+import { OfferType } from '../types/offer';
 
-export const sortOffers = (offers: OfferType[], currentSortOffersBy: string) => {
+export const sortOffers = (
+  offers: OfferType[],
+  currentSortOffersBy: string
+) => {
   const sortedOffers: OfferType[] = offers;
 
   switch (currentSortOffersBy) {
-    case sortingOptions.PRICE_ASC:
+    case SortingOptions.PRICE_ASC:
       return sortedOffers.sort((a, b) => a.price - b.price);
-      break;
-    case sortingOptions.PRICE_DESC:
+
+    case SortingOptions.PRICE_DESC:
       return sortedOffers.sort((a, b) => b.price - a.price);
-      break;
-    case sortingOptions.RATING_DESC:
+
+    case SortingOptions.RATING_DESC:
       return sortedOffers.sort((a, b) => b.rating - a.rating);
-      break;
-    case sortingOptions.POPULAR:
+
+    case SortingOptions.POPULAR:
     default:
       return sortedOffers;
   }

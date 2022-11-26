@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import HeaderSvg from '../../components/header/header-svg';
-import Logo from '../../components/logo/logo';
+import HeaderLogo from '../../components/header/header-logo';
 
 function Login(): JSX.Element {
   return (
@@ -13,7 +13,7 @@ function Login(): JSX.Element {
         <div className='container'>
           <div className='header__wrapper'>
             <div className='header__left'>
-              <Logo />
+              <HeaderLogo />
             </div>
           </div>
         </div>

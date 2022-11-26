@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { setCityAction, setOffersAction, setSortOffersByAction, setIsLoadingAction} from './action';
-import { cities } from '../mocks/cities';
+import { Cities } from '../const';
 import { SortingOptions } from '../const';
 import { CityType } from '../types/city';
 import { OfferType } from '../types/offer';
@@ -13,7 +13,7 @@ type StateProps = {
 }
 
 const initialState:StateProps = {
-  city: cities[0],
+  city: Cities[0],
   offers:[],
   sortOffersBy:SortingOptions.POPULAR as string,
   isLoading:false

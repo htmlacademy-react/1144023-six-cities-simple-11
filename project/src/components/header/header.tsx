@@ -1,4 +1,4 @@
-import Logo from '../logo/logo';
+import HeaderLogo from './header-logo';
 import HeaderSvg from './header-svg';
 
 function Header(): JSX.Element {
@@ -9,7 +9,7 @@ function Header(): JSX.Element {
         <div className='container'>
           <div className='header__wrapper'>
             <div className='header__left'>
-              <Logo />
+              <HeaderLogo />
             </div>
             <nav className='header__nav'>
               <ul className='header__nav-list'>

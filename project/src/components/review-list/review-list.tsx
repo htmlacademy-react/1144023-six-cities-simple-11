@@ -6,9 +6,18 @@ type ReviewListProps = {
 };
 
 function ReviewList({ reviews }: ReviewListProps): JSX.Element {
+
+  let sortedReviews:ReviewType[] = [] ;
+
+  if (reviews.length > 1) {
+    sortedReviews = reviews.slice().sort(
+      (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
+    );
+  }
+
   return (
     <ul className='reviews__list'>
-      {reviews.map((review) => (
+      {sortedReviews?.map((review) => (
         <li className='reviews__item' key={`review-${review.id}`}>
           <Review review={review} />
         </li>

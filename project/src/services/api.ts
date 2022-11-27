@@ -3,6 +3,9 @@ import { BACKEND_URL, REQUEST_TIMEOUT } from '../const';
 import { getToken } from './token';
 import {StatusCodes} from 'http-status-codes';
 import { toast } from 'react-toastify';
+// import { store } from '../store';
+// import { redirectToRouteAction } from '../store/action';
+
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
@@ -36,6 +39,10 @@ export const createAPI = (): AxiosInstance => {
       if (error.response && shouldDisplayError(error.response)) {
         toast.warn(error.response.data.error);
       }
+
+      // if ( error.response?.status === 404) {
+      //   store.dispatch(redirectToRouteAction(AppRoute.NotFound));
+      // }
 
       throw error;
     }

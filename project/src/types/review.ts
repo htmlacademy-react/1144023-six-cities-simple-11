@@ -10,3 +10,5 @@ export type ReviewType = {
   comment: string;
   date: string;
 };
+
+export type ReviewData = Omit<ReviewType, 'user' | 'date'>;

@@ -1,31 +1,54 @@
 import { ChangeEvent, Fragment, useState } from 'react';
+import useAppDispatch from '../../hooks/useAppDispatch';
+import { postNewReviewAction } from '../../store/api-actions';
 
-function ReviewForm(): JSX.Element {
+type ReviewFormProps = {
+  offerId: number;
+};
+
+function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const [reviewFormData, setReviewFormData] = useState({
-    rating: '',
+    rating: 0,
     review: '',
   });
-  const ratingArr: number[] = Array.from({ length: 5 }, (_, i) => i + 1);
+  const ratingArr: number[] = Array.from({ length: 5 }, (_, i) => i + 1).reverse();
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   function handleFieldChange({
     target,
   }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
-
     const { name, value } = target;
     setReviewFormData({ ...reviewFormData, [name]: value });
 
     if (target.tagName === 'TEXTAREA') {
-      setButtonDisabled(target.value === '');
+      setButtonDisabled(target.value.length < 50);
     }
   }
 
   function handleReviewFormSubmit(event: ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    dispatch(
+      postNewReviewAction({
+        id: offerId,
+        comment: reviewFormData.review,
+        rating: Number(reviewFormData.rating),
+      })
+    );
+    setReviewFormData({
+      rating: 0,
+      review: ''
+    });
   }
 
   return (
-    <form className='reviews__form form' action='#' method='post' onSubmit={handleReviewFormSubmit}>
+    <form
+      className='reviews__form form'
+      action='#'
+      method='post'
+      onSubmit={handleReviewFormSubmit}
+    >
       <label className='reviews__label form__label' htmlFor='review'>
         Your review
       </label>
@@ -71,7 +94,7 @@ function ReviewForm(): JSX.Element {
         <button
           className='reviews__submit form__submit button'
           type='submit'
-          disabled = {!!buttonDisabled}
+          disabled={!!buttonDisabled}
         >
           Submit
         </button>

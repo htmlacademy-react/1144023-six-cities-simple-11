@@ -2,6 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { CityType } from '../types/city';
 import { OfferType } from '../types/offer';
+import { ReviewType } from '../types/review';
 
 export const setCityAction = createAction(
   'offer/setCity',
@@ -34,6 +35,21 @@ export const setUserEmailAction = createAction(
 );
 
 export const redirectToRouteAction = createAction(
-  'data/redirectToRoute',
+  'user/redirectToRoute',
   (value: AppRoute) => ({ payload: value })
+);
+
+export const setOfferAction = createAction(
+  'offer/setOffer',
+  (value: OfferType) => ({payload: value})
+);
+
+export const setOffersNearbyAction = createAction(
+  'offer/setOffersNearby',
+  (value: OfferType[]) => ({payload: value})
+);
+
+export const setOfferReviewsAction = createAction(
+  'offer/setOfferReviews',
+  (value: ReviewType[]) => ({payload: value})
 );

@@ -21,6 +21,7 @@ function HomePage(): JSX.Element {
   const currentSortOffersBy = useAppSelector((state) => state.sortOffersBy);
   currentCityOffers = sortOffers(currentCityOffers, currentSortOffersBy);
 
+
   const handleMouseEnter = (offerId: number | null) => {
     setActiveCardId(offerId);
   };

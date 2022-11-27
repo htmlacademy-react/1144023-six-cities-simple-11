@@ -1,4 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
+import { AppRoute, AuthorizationStatus } from '../const';
 import { CityType } from '../types/city';
 import { OfferType } from '../types/offer';
 
@@ -14,10 +15,25 @@ export const setOffersAction = createAction(
 
 export const setSortOffersByAction = createAction(
   'offer/sortOffersBy',
-  (sortingOption:string) => ({ payload: sortingOption })
+  (value: string) => ({ payload: value })
 );
 
 export const setIsLoadingAction = createAction(
   'offer/setIsLoading',
   (value: boolean) => ({ payload: value })
+);
+
+export const requireAuthorizationAction = createAction(
+  'user/requireAuthorization',
+  (value: AuthorizationStatus) => ({ payload: value })
+);
+
+export const setUserEmailAction = createAction(
+  'user/setUserEmail',
+  (value: string) => ({ payload: value })
+);
+
+export const redirectToRouteAction = createAction(
+  'data/redirectToRoute',
+  (value: AppRoute) => ({ payload: value })
 );

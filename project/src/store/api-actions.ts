@@ -1,8 +1,8 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { setIsLoadingAction, setOffersAction, requireAuthorizationAction } from './action';
+import { setIsLoadingAction, setOffersAction, requireAuthorizationAction, redirectToRouteAction } from './action';
 import { AppDispatch, State } from '../types/state';
-import { APIRoute, AuthorizationStatus } from '../const';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { OfferType } from '../types/offer';
 import { UserType } from '../types/user';
 import { AuthType } from '../types/auth';
@@ -49,10 +49,11 @@ export const loginAction = createAsyncThunk<
   }
 >(
   'user/login',
-  async ({ login: email, password }, { dispatch, extra: api }) => {
+  async ({ email, password }, { dispatch, extra: api }) => {
     const { data: { token } } = await api.post<UserType>(APIRoute.Login, { email, password });
     saveToken(token);
     dispatch(requireAuthorizationAction(AuthorizationStatus.Auth));
+    dispatch(redirectToRouteAction(AppRoute.Main));
   }
 );
 

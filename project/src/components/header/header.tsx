@@ -3,15 +3,19 @@ import useAppSelector from '../../hooks/useAppSelector';
 import HeaderLogo from './header-logo';
 import HeaderSvg from './header-svg';
 import { Link } from 'react-router-dom';
+import useAppDispatch from '../../hooks/useAppDispatch';
+import { logoutAction } from '../../store/api-actions';
 
 function Header(): JSX.Element {
+  const dispatch = useAppDispatch();
 
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus
   );
+  const userEmail = useAppSelector((state) => state.userEmail);
 
-  const handleLogout = () => {
-    //dispatch(logoutAction());
+  const handleLogoutClick = () => {
+    dispatch(logoutAction());
   };
 
   return (
@@ -31,12 +35,12 @@ function Header(): JSX.Element {
                       <div className='header__nav-profile'>
                         <div className='header__avatar-wrapper user__avatar-wrapper'></div>
                         <span className='header__user-name user__name'>
-                          Oliver.conner@gmail.com
+                          {userEmail}
                         </span>
                       </div>
                     </li>
                     <li className='header__nav-item'>
-                      <Link className='header__nav-link' to={AppRoute.Main} onClick={handleLogout}>
+                      <Link className='header__nav-link' to={AppRoute.Main} onClick={handleLogoutClick}>
                         <span className='header__signout'>Sign out</span>
                       </Link>
                     </li>

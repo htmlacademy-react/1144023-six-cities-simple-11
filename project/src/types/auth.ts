@@ -1,4 +1,4 @@
 export type AuthType = {
-  login: string;
+  email: string;
   password: string;
 };

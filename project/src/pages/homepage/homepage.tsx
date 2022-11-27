@@ -22,7 +22,6 @@ function HomePage(): JSX.Element {
   currentCityOffers = sortOffers(currentCityOffers, currentSortOffersBy);
 
 
-
   const handleMouseEnter = (offerId: number | null) => {
     setActiveCardId(offerId);
   };

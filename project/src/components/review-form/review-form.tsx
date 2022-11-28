@@ -1,4 +1,5 @@
 import { ChangeEvent, Fragment, useState } from 'react';
+import { toast } from 'react-toastify';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import { postNewReviewAction } from '../../store/api-actions';
 
@@ -28,6 +29,11 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
 
   function handleReviewFormSubmit(event: ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!Number(reviewFormData.rating)) {
+      toast.warn('Please select rating');
+      return;
+    }
 
     dispatch(
       postNewReviewAction({

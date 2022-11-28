@@ -32,7 +32,7 @@ function Room(): JSX.Element {
   const currentOffer = useAppSelector((state) => state.currentOffer);
   const currentOfferReviews = useAppSelector((state) => state.currentOfferReviews);
   const offersNearby = useAppSelector((state) => state.offersNearby);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const currentCity = useAppSelector((state) => state.city);
 
   if (!currentOffer) {
@@ -51,7 +51,7 @@ function Room(): JSX.Element {
         <section className='property'>
           <div className='property__gallery-container container'>
             <div className='property__gallery'>
-              {currentOffer.images.map((img) => (
+              {currentOffer.images?.map((img) => (
                 <div className='property__image-wrapper' key={img}>
                   <img
                     className='property__image'
@@ -151,7 +151,7 @@ function Room(): JSX.Element {
                   <span className='reviews__amount'>{currentOfferReviews.length}</span>
                 </h2>
                 <ReviewList reviews={currentOfferReviews} />
-                {(authStatus === AuthorizationStatus.Auth) && <ReviewForm offerId={Number(id)}/>}
+                {(authorizationStatus === AuthorizationStatus.Auth) && <ReviewForm offerId={Number(id)}/>}
               </section>
             </div>
           </div>

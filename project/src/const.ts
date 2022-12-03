@@ -4,6 +4,7 @@ export enum AppRoute {
   Main = '/',
   Login = '/login',
   Room = '/offer',
+  NotFound = '/404'
 }
 
 export enum AuthorizationStatus {
@@ -32,7 +33,6 @@ export const AVATAR_URL_DOMAIN =
 export const BACKEND_URL = 'https://11.react.pages.academy/six-cities-simple';
 
 export const REQUEST_TIMEOUT = 5000;
-
 
 export const Cities: CityType[] = [
   {
@@ -84,3 +84,6 @@ export const Cities: CityType[] = [
     },
   },
 ];
+
+
+export const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

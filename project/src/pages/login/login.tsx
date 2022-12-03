@@ -2,38 +2,45 @@ import { Helmet } from 'react-helmet-async';
 import HeaderSvg from '../../components/header/header-svg';
 import HeaderLogo from '../../components/header/header-logo';
 import useAppDispatch from '../../hooks/useAppDispatch';
-import { Link } from 'react-router-dom';
-import { FormEvent, useRef } from 'react';
-import { AppRoute, Cities } from '../../const';
+import { Link, useNavigate } from 'react-router-dom';
+import { FormEvent, useEffect, useRef } from 'react';
+import { AppRoute, AuthorizationStatus, Cities } from '../../const';
 import { AuthType } from '../../types/auth';
 import { loginAction } from '../../store/api-actions';
-import { setUserEmailAction } from '../../store/action';
 import { toast } from 'react-toastify';
+import useAppSelector from '../../hooks/useAppSelector';
 
 function Login(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
+
+  useEffect(() => {
+    authorizationStatus === AuthorizationStatus.Auth && navigate(AppRoute.Main);
+  }, [authorizationStatus, navigate]);
 
   const handleLoginFormSubmit = (event: FormEvent) => {
     event.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
-
       const password = passwordRef.current.value.trim();
+      const passwordMask = /([0-9].*[a-z])|([a-z].*[0-9])/;
 
-      if (password.length === 0) {
-        toast.warn('Password must not contain only whitespaces');
+      if (!password.length || !passwordMask.test(password)) {
+        toast.warn('Password must contain at least one number and one letter');
         return;
       }
 
       const authData: AuthType = {
         email: emailRef.current.value,
-        password: password
+        password: password,
       };
 
       dispatch(loginAction(authData));
-      dispatch(setUserEmailAction(authData.email));
     }
   };
 
@@ -57,7 +64,12 @@ function Login(): JSX.Element {
         <div className='page__login-container container'>
           <section className='login'>
             <h1 className='login__title'>Sign in</h1>
-            <form className='login__form form' action='#' method='post' onSubmit={handleLoginFormSubmit}>
+            <form
+              className='login__form form'
+              action='#'
+              method='post'
+              onSubmit={handleLoginFormSubmit}
+            >
               <div className='login__input-wrapper form__input-wrapper'>
                 <label className='visually-hidden'>E-mail</label>
                 <input

@@ -7,11 +7,11 @@ function Page404(): JSX.Element {
       style={{ margin: '100px auto', maxWidth: '400px', textAlign: 'center' }}
     >
       <Helmet>
-        <title>Ошибка 404</title>
+        <title>Error 404</title>
       </Helmet>
-      <h1>Ошибка 404</h1>
-      <h2>Страница не найдена.</h2>
-      <Link to='/' style={{ textDecoration: 'underline' }}>Вернуться на главную</Link>
+      <h1>Error 404</h1>
+      <h2>Page not found.</h2>
+      <Link to='/' style={{ textDecoration: 'underline' }}>Back to Homepage</Link>
     </div>
   );
 }

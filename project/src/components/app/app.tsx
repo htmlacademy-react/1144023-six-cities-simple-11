@@ -8,7 +8,9 @@ import { HelmetProvider } from 'react-helmet-async';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
+
 function App(): JSX.Element {
+
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
@@ -16,6 +18,7 @@ function App(): JSX.Element {
           <Route path={AppRoute.Main} element={<HomePage />} />
           <Route path={AppRoute.Login} element={<Login />} />
           <Route path={`${AppRoute.Room}/:id`} element={<Room />} />
+          <Route path={AppRoute.NotFound} element={<Page404 />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
       </HistoryRouter>

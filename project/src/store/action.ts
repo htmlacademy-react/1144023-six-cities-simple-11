@@ -2,6 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { CityType } from '../types/city';
 import { OfferType } from '../types/offer';
+import { ReviewType } from '../types/review';
 
 export const setCityAction = createAction(
   'offer/setCity',
@@ -18,8 +19,13 @@ export const setSortOffersByAction = createAction(
   (value: string) => ({ payload: value })
 );
 
-export const setIsLoadingAction = createAction(
-  'offer/setIsLoading',
+export const setIsOffersLoadingAction = createAction(
+  'offer/setIsOffersLoading',
+  (value: boolean) => ({ payload: value })
+);
+
+export const setIsOfferLoadingAction = createAction(
+  'offer/setIsOfferLoading',
   (value: boolean) => ({ payload: value })
 );
 
@@ -30,10 +36,30 @@ export const requireAuthorizationAction = createAction(
 
 export const setUserEmailAction = createAction(
   'user/setUserEmail',
-  (value: string) => ({ payload: value })
+  (value: string | null) => ({ payload: value })
 );
 
 export const redirectToRouteAction = createAction(
-  'data/redirectToRoute',
+  'user/redirectToRoute',
   (value: AppRoute) => ({ payload: value })
 );
+
+export const setOfferAction = createAction(
+  'offer/setOffer',
+  (value: OfferType) => ({payload: value})
+);
+
+export const setOffersNearbyAction = createAction(
+  'offer/setOffersNearby',
+  (value: OfferType[]) => ({payload: value})
+);
+
+export const setOfferReviewsAction = createAction(
+  'offer/setOfferReviews',
+  (value: ReviewType[]) => ({payload: value})
+);
+
+// export const setIsPostingNewReviewAction = createAction(
+//   'offer/setIsPostingNewReview',
+//   (value: boolean) => ({payload: value})
+// );

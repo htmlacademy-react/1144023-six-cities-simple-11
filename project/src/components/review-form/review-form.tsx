@@ -23,7 +23,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
     setReviewFormData({ ...reviewFormData, [name]: value });
 
     if (target.tagName === 'TEXTAREA') {
-      setButtonDisabled(target.value.length < 50);
+      setButtonDisabled(target.value.length < 50 || target.value.length > 300);
     }
   }
 
@@ -46,6 +46,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
       rating: 0,
       review: ''
     });
+    setButtonDisabled(true);
   }
 
   return (
@@ -100,7 +101,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
         <button
           className='reviews__submit form__submit button'
           type='submit'
-          disabled={!!buttonDisabled}
+          disabled={buttonDisabled}
         >
           Submit
         </button>

@@ -19,8 +19,13 @@ export const setSortOffersByAction = createAction(
   (value: string) => ({ payload: value })
 );
 
-export const setIsLoadingAction = createAction(
-  'offer/setIsLoading',
+export const setIsOffersLoadingAction = createAction(
+  'offer/setIsOffersLoading',
+  (value: boolean) => ({ payload: value })
+);
+
+export const setIsOfferLoadingAction = createAction(
+  'offer/setIsOfferLoading',
   (value: boolean) => ({ payload: value })
 );
 
@@ -31,7 +36,7 @@ export const requireAuthorizationAction = createAction(
 
 export const setUserEmailAction = createAction(
   'user/setUserEmail',
-  (value: string) => ({ payload: value })
+  (value: string | null) => ({ payload: value })
 );
 
 export const redirectToRouteAction = createAction(
@@ -53,3 +58,8 @@ export const setOfferReviewsAction = createAction(
   'offer/setOfferReviews',
   (value: ReviewType[]) => ({payload: value})
 );
+
+// export const setIsPostingNewReviewAction = createAction(
+//   'offer/setIsPostingNewReview',
+//   (value: boolean) => ({payload: value})
+// );

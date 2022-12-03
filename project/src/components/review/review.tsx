@@ -1,4 +1,5 @@
 import { ReviewType } from '../../types/review';
+import { months } from '../../const';
 
 type ReviewProps = {
   review: ReviewType;
@@ -6,11 +7,8 @@ type ReviewProps = {
 
 function Review({ review }: ReviewProps): JSX.Element {
   const { user, rating, comment, date } = review;
-
   const reviewDate = new Date(date);
-  const formattedReviewDate = reviewDate.toLocaleString('en-GB', {
-    timeZone: 'UTC',
-  });
+  const formattedReviewDate = `${months[reviewDate.getMonth()]} ${reviewDate.getFullYear()}`;
 
   return (
     <>

@@ -11,14 +11,15 @@ import { sortOffers } from '../../utils/sort-offers';
 import Preloader from '../../components/preloader/preloader';
 
 function HomePage(): JSX.Element {
-  const isLoading = useAppSelector((state) => state.isLoading);
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
   const currentCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
+  const currentSortOffersBy = useAppSelector((state) => state.sortOffersBy);
   let currentCityOffers = offers.filter(
     (offer) => offer.city.name === currentCity.name
   );
-  const currentSortOffersBy = useAppSelector((state) => state.sortOffersBy);
+
   currentCityOffers = sortOffers(currentCityOffers, currentSortOffersBy);
 
   const handleMouseEnter = (offerId: number | null) => {
@@ -37,7 +38,7 @@ function HomePage(): JSX.Element {
       <Helmet>
         <title>Home page: Best rent choice in {currentCity.name}</title>
       </Helmet>
-      {isLoading && <Preloader />}
+      {isOffersLoading && <Preloader />}
       <Header />
       <main className='page__main page__main--index'>
         <h1 className='visually-hidden'>Cities</h1>

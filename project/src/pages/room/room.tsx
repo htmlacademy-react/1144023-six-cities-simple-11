@@ -21,14 +21,14 @@ import { AuthorizationStatus } from '../../const';
 function Room(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams();
+  const currentOfferId = Number(id);
 
   useEffect(() => {
-    dispatch(fetchOfferAction(Number(id)));
-    dispatch(fetchOffersNearbyAction(Number(id)));
-    dispatch(fetchOfferReviewsAction(Number(id)));
-  }, [id, dispatch]);
+    dispatch(fetchOfferAction(currentOfferId));
+    dispatch(fetchOffersNearbyAction(currentOfferId));
+    dispatch(fetchOfferReviewsAction(currentOfferId));
+  }, [currentOfferId, dispatch]);
 
-  // const isLoading = useAppSelector((state) => state.isLoading);
   const currentOffer = useAppSelector((state) => state.currentOffer);
   const currentOfferReviews = useAppSelector((state) => state.currentOfferReviews);
   const offersNearby = useAppSelector((state) => state.offersNearby);
@@ -151,14 +151,14 @@ function Room(): JSX.Element {
                   <span className='reviews__amount'>{currentOfferReviews.length}</span>
                 </h2>
                 <ReviewList reviews={currentOfferReviews} />
-                {(authorizationStatus === AuthorizationStatus.Auth) && <ReviewForm offerId={Number(id)}/>}
+                {(authorizationStatus === AuthorizationStatus.Auth) && <ReviewForm offerId={currentOfferId}/>}
               </section>
             </div>
           </div>
           <Map
             city={currentCity}
             offers={offersNearbyWithCurrent}
-            activeOfferId={Number(id)}
+            activeOfferId={currentOfferId}
             mapClassName='property__map'
           />
         </section>
@@ -170,7 +170,7 @@ function Room(): JSX.Element {
             <div className='near-places__list places__list'>
               <List
                 offers={offersNearby}
-                activeCardId={Number(id)}
+                activeCardId={currentOfferId}
                 cardClassName='near-places'
               />
             </div>

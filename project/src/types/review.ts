@@ -11,4 +11,4 @@ export type ReviewType = {
   date: string;
 };
 
-export type ReviewData = Omit<ReviewType, 'user' | 'date'>;
+export type ReviewDataType = Omit<ReviewType, 'user' | 'date'>;

@@ -14,7 +14,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
     review: '',
   });
   const ratingArr: number[] = Array.from({ length: 5 }, (_, i) => i + 1).reverse();
-  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [isButtonDisabled, setButtonDisabled] = useState(true);
 
   function handleFieldChange({
     target,
@@ -101,7 +101,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
         <button
           className='reviews__submit form__submit button'
           type='submit'
-          disabled={buttonDisabled}
+          disabled={isButtonDisabled}
         >
           Submit
         </button>

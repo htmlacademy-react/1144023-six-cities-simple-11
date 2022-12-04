@@ -1,16 +1,16 @@
+import { memo } from 'react';
 import Card from '../../components/card/card';
 import { OfferType } from '../../types/offer';
 
 type ListProps = {
   offers: OfferType[];
-  onMouseCardEnter?:(id:number) => void;
-  onMouseCardLeave?:() => void;
+  onMouseCardEnter?:(id:number | null) => void;
   activeCardId:number | null;
   cardClassName:string;
 };
 
 function List(props: ListProps): JSX.Element {
-  const { offers, onMouseCardEnter, onMouseCardLeave, activeCardId, cardClassName} = props;
+  const { offers, onMouseCardEnter, activeCardId, cardClassName} = props;
 
   return (
     <>
@@ -18,8 +18,7 @@ function List(props: ListProps): JSX.Element {
         <Card
           offer={offer}
           key={offer.id}
-          handleCardMouseEnter={onMouseCardEnter}
-          handleCardMouseLeave={onMouseCardLeave}
+          handleCardMouseHover={onMouseCardEnter}
           isActive={offer.id === activeCardId}
           cardClassName={cardClassName}
         />
@@ -28,4 +27,4 @@ function List(props: ListProps): JSX.Element {
   );
 }
 
-export default List;
+export default memo(List);

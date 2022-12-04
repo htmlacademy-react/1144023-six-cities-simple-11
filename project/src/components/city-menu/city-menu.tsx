@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import useAppDispatch from '../../hooks/useAppDispatch';
-import { MouseEvent } from 'react';
+import { memo, MouseEvent, useCallback } from 'react';
 import { Cities } from '../../const';
 import { CityType } from '../../types/city';
 import cn from 'classnames';
 import { AppRoute } from '../../const';
-import { setCityAction } from '../../store/action';
+import { setCityAction } from '../../store/offer-process/offer-process';
 
 type CityMenuProps = {
   currentCity: CityType;
@@ -14,13 +14,13 @@ type CityMenuProps = {
 function CityMenu({ currentCity }: CityMenuProps): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const handleChangeCity = (
+  const handleChangeCityClick = useCallback((
     event: MouseEvent<HTMLAnchorElement>,
     city: CityType
   ) => {
     event.preventDefault();
     dispatch(setCityAction(city));
-  };
+  }, [dispatch]);
 
   return (
     <ul className='locations__list tabs__list'>
@@ -31,7 +31,7 @@ function CityMenu({ currentCity }: CityMenuProps): JSX.Element {
               'tabs__item--active': city === currentCity,
             })}
             to={AppRoute.Main}
-            onClick={(e) => handleChangeCity(e, city)}
+            onClick={(e) => handleChangeCityClick(e, city)}
           >
             <span>{city.name}</span>
           </Link>
@@ -41,4 +41,4 @@ function CityMenu({ currentCity }: CityMenuProps): JSX.Element {
   );
 }
 
-export default CityMenu;
+export default memo(CityMenu);

@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 function HeaderSvg(): JSX.Element {
   return (
     <div style={{ display: 'none' }}>
@@ -26,4 +28,4 @@ function HeaderSvg(): JSX.Element {
   );
 }
 
-export default HeaderSvg;
+export default memo(HeaderSvg);

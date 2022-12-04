@@ -7,16 +7,14 @@ import { getRatingWidth } from '../../utils/utils';
 
 type CardProps = {
   offer: OfferType;
-  handleCardMouseEnter?: (id: number) => void;
-  handleCardMouseLeave?: () => void;
+  handleCardMouseHover?: (id: number | null) => void;
   isActive: boolean;
   cardClassName:string;
 };
 
 function Card({
   offer,
-  handleCardMouseEnter,
-  handleCardMouseLeave,
+  handleCardMouseHover,
   isActive,
   cardClassName
 }: CardProps): JSX.Element {
@@ -26,9 +24,9 @@ function Card({
       className={cn('place-card', `${cardClassName}__card`, { active: isActive })}
       id={`offer-${offer.id}`}
       onMouseEnter={(event: MouseEvent<HTMLElement>) =>
-        handleCardMouseEnter && handleCardMouseEnter(offer.id)}
+        handleCardMouseHover && handleCardMouseHover(offer.id)}
       onMouseLeave={(event: MouseEvent<HTMLElement>) =>
-        handleCardMouseLeave && handleCardMouseLeave()}
+        handleCardMouseHover && handleCardMouseHover(null)}
     >
       {offer.isPremium && (
         <div className="place-card__mark">
@@ -55,7 +53,7 @@ function Card({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: getRatingWidth(offer.rating) }}></span>
+            <span style={{ width: getRatingWidth(offer.rating, false) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

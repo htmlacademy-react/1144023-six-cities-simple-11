@@ -17,6 +17,9 @@ import {
 } from '../../store/api-actions';
 import Preloader from '../../components/preloader/preloader';
 import { AuthorizationStatus } from '../../const';
+import { getCurrentCity, getCurrentOffer, getOffersNearby } from '../../store/offer-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getCurrentOfferSortedReviews } from '../../store/review-process/selectors';
 
 function Room(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -29,11 +32,11 @@ function Room(): JSX.Element {
     dispatch(fetchOfferReviewsAction(currentOfferId));
   }, [currentOfferId, dispatch]);
 
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const currentOfferReviews = useAppSelector((state) => state.currentOfferReviews);
-  const offersNearby = useAppSelector((state) => state.offersNearby);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector(getCurrentCity);
+  const currentOffer = useAppSelector(getCurrentOffer);
+  const currentOfferReviews = useAppSelector(getCurrentOfferSortedReviews);
+  const offersNearby = useAppSelector(getOffersNearby);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (!currentOffer) {
     return <Preloader />;
@@ -75,7 +78,7 @@ function Room(): JSX.Element {
               <div className='property__rating rating'>
                 <div className='property__stars rating__stars'>
                   <span
-                    style={{ width: getRatingWidth(currentOffer.rating) }}
+                    style={{ width: getRatingWidth(currentOffer.rating, true) }}
                   >
                   </span>
                   <span className='visually-hidden'>Rating</span>

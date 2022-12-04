@@ -1,5 +1,6 @@
 import { ReviewType } from '../../types/review';
-import { months } from '../../const';
+import { Months } from '../../const';
+import { getRatingWidth } from '../../utils/utils';
 
 type ReviewProps = {
   review: ReviewType;
@@ -8,7 +9,7 @@ type ReviewProps = {
 function Review({ review }: ReviewProps): JSX.Element {
   const { user, rating, comment, date } = review;
   const reviewDate = new Date(date);
-  const formattedReviewDate = `${months[reviewDate.getMonth()]} ${reviewDate.getFullYear()}`;
+  const formattedReviewDate = `${Months[reviewDate.getMonth()]} ${reviewDate.getFullYear()}`;
 
   return (
     <>
@@ -27,7 +28,7 @@ function Review({ review }: ReviewProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${(rating * 100) / 5}%` }}></span>
+            <span style={{ width: getRatingWidth(rating, false) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

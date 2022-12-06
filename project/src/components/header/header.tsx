@@ -5,14 +5,14 @@ import HeaderSvg from './header-svg';
 import { Link } from 'react-router-dom';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import { logoutAction } from '../../store/api-actions';
+import { memo } from 'react';
+import { getAuthorizationStatus, getUserEmail } from '../../store/user-process/selectors';
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
-  const userEmail = useAppSelector((state) => state.userEmail);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userEmail = useAppSelector(getUserEmail);
 
   const handleLogoutClick = () => {
     dispatch(logoutAction());
@@ -65,4 +65,4 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+export default memo(Header);

@@ -2,32 +2,36 @@ import Header from '../../components/header/header';
 import List from '../../components/list/list';
 import { Helmet } from 'react-helmet-async';
 import Map from '../../components/map/map';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import CityMenu from '../../components/city-menu/city-menu';
 import useAppSelector from '../../hooks/useAppSelector';
 import cn from 'classnames';
 import Sorting from '../../components/sorting/sorting';
-import { sortOffers } from '../../utils/sort-offers';
+// import { sortOffers } from '../../utils/sort-offers';
 import Preloader from '../../components/preloader/preloader';
+import {
+  getCurrentCity,
+  getCurrentCitySortedOffers,
+  // getCurrentSortOffersBy,
+  getIsOffersLoading,
+  // getOffers,
+} from '../../store/offer-process/selectors';
 
 function HomePage(): JSX.Element {
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
-  const currentCity = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
-  const currentSortOffersBy = useAppSelector((state) => state.sortOffersBy);
-  let currentCityOffers = offers.filter(
-    (offer) => offer.city.name === currentCity.name
-  );
+  const isOffersLoading = useAppSelector(getIsOffersLoading);
+  const currentCity = useAppSelector(getCurrentCity);
+  // const offers = useAppSelector(getOffers);
+  // const currentSortOffersBy = useAppSelector(getCurrentSortOffersBy);
+  // let currentCityOffers = offers.filter(
+  //   (offer) => offer.city.name === currentCity.name
+  // );
+  // currentCityOffers = sortOffers(currentCityOffers, currentSortOffersBy);
+  const currentCityOffers = useAppSelector(getCurrentCitySortedOffers);
 
-  currentCityOffers = sortOffers(currentCityOffers, currentSortOffersBy);
-
-  const handleMouseEnter = (offerId: number | null) => {
+  const handleCardMouseHover = useCallback((offerId: number | null) => {
     setActiveCardId(offerId);
-  };
-  const handleMouseLeave = () => {
-    setActiveCardId(null);
-  };
+  },[]);
 
   return (
     <div
@@ -60,8 +64,7 @@ function HomePage(): JSX.Element {
                 <div className='cities__places-list places__list tabs__content'>
                   <List
                     offers={currentCityOffers}
-                    onMouseCardEnter={handleMouseEnter}
-                    onMouseCardLeave={handleMouseLeave}
+                    onMouseCardEnter={handleCardMouseHover}
                     activeCardId={activeCardId}
                     cardClassName='cities'
                   />

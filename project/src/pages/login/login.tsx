@@ -9,15 +9,14 @@ import { AuthType } from '../../types/auth';
 import { loginAction } from '../../store/api-actions';
 import { toast } from 'react-toastify';
 import useAppSelector from '../../hooks/useAppSelector';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function Login(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     authorizationStatus === AuthorizationStatus.Auth && navigate(AppRoute.Main);

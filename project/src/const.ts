@@ -4,7 +4,7 @@ export enum AppRoute {
   Main = '/',
   Login = '/login',
   Room = '/offer',
-  NotFound = '/404'
+  NotFound = '/404',
 }
 
 export enum AuthorizationStatus {
@@ -85,5 +85,23 @@ export const Cities: CityType[] = [
   },
 ];
 
+export const Months : string[] = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 
-export const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+export enum NameSpace {
+  Offer = 'OFFER',
+  Review = 'REVIEW',
+  User = 'USER',
+}

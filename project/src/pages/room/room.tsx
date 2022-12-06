@@ -17,7 +17,7 @@ import {
 } from '../../store/api-actions';
 import Preloader from '../../components/preloader/preloader';
 import { AuthorizationStatus } from '../../const';
-import { getCurrentCity, getCurrentOffer, getOffersNearby } from '../../store/offer-process/selectors';
+import { getCurrentOffer, getOffersNearby } from '../../store/offer-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getCurrentOfferSortedReviews } from '../../store/review-process/selectors';
 
@@ -32,7 +32,7 @@ function Room(): JSX.Element {
     dispatch(fetchOfferReviewsAction(currentOfferId));
   }, [currentOfferId, dispatch]);
 
-  const currentCity = useAppSelector(getCurrentCity);
+  // const currentCity = useAppSelector(getCurrentCity);
   const currentOffer = useAppSelector(getCurrentOffer);
   const currentOfferReviews = useAppSelector(getCurrentOfferSortedReviews);
   const offersNearby = useAppSelector(getOffersNearby);
@@ -42,6 +42,7 @@ function Room(): JSX.Element {
     return <Preloader />;
   }
 
+  const currentCity = currentOffer.city;
   const offersNearbyWithCurrent = [...offersNearby, currentOffer];
 
   return (

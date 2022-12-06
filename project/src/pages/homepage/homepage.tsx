@@ -2,7 +2,7 @@ import Header from '../../components/header/header';
 import List from '../../components/list/list';
 import { Helmet } from 'react-helmet-async';
 import Map from '../../components/map/map';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import CityMenu from '../../components/city-menu/city-menu';
 import useAppSelector from '../../hooks/useAppSelector';
 import cn from 'classnames';
@@ -29,9 +29,9 @@ function HomePage(): JSX.Element {
   // currentCityOffers = sortOffers(currentCityOffers, currentSortOffersBy);
   const currentCityOffers = useAppSelector(getCurrentCitySortedOffers);
 
-  const handleCardMouseHover = (offerId: number | null) => {
+  const handleCardMouseHover = useCallback((offerId: number | null) => {
     setActiveCardId(offerId);
-  };
+  },[]);
 
   return (
     <div

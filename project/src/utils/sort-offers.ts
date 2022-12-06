@@ -5,7 +5,7 @@ export const sortOffers = (
   offers: OfferType[],
   currentSortOffersBy: string
 ) => {
-  const sortedOffers: OfferType[] = offers;
+  const sortedOffers: OfferType[] = [...offers];
 
   switch (currentSortOffersBy) {
     case SortingOptions.PRICE_ASC:

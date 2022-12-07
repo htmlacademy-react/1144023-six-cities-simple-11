@@ -24,4 +24,6 @@ export type OfferProcessType = {
 
 export type ReviewProcessType = {
   currentOfferReviews: ReviewType[];
+  isPostingNewReview:boolean;
+  isPostingNewReviewError:boolean;
 };

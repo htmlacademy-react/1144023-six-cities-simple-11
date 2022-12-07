@@ -6,6 +6,10 @@ import { sortReviews } from '../../utils/sort-reviews';
 
 export const getCurrentOfferReviews = (state: State): ReviewType[] =>
   state[NameSpace.Review].currentOfferReviews;
+export const getIsPostingNewReview = (state: State): boolean =>
+  state[NameSpace.Review].isPostingNewReview;
+export const getIsPostingNewReviewError = (state: State): boolean =>
+  state[NameSpace.Review].isPostingNewReviewError;
 
 export const getCurrentOfferSortedReviews = createSelector(
   getCurrentOfferReviews,

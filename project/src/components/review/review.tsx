@@ -7,6 +7,7 @@ type ReviewProps = {
 };
 
 function Review({ review }: ReviewProps): JSX.Element {
+
   const { user, rating, comment, date } = review;
   const reviewDate = new Date(date);
   const formattedReviewDate = `${Months[reviewDate.getMonth()]} ${reviewDate.getFullYear()}`;

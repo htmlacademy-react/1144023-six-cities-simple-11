@@ -32,7 +32,6 @@ function Room(): JSX.Element {
     dispatch(fetchOfferReviewsAction(currentOfferId));
   }, [currentOfferId, dispatch]);
 
-  // const currentCity = useAppSelector(getCurrentCity);
   const currentOffer = useAppSelector(getCurrentOffer);
   const currentOfferReviews = useAppSelector(getCurrentOfferSortedReviews);
   const offersNearby = useAppSelector(getOffersNearby);

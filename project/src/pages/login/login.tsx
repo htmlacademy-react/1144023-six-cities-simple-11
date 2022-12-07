@@ -12,6 +12,7 @@ import useAppSelector from '../../hooks/useAppSelector';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function Login(): JSX.Element {
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement | null>(null);

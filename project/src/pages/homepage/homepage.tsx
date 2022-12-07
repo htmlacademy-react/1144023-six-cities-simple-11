@@ -7,31 +7,23 @@ import CityMenu from '../../components/city-menu/city-menu';
 import useAppSelector from '../../hooks/useAppSelector';
 import cn from 'classnames';
 import Sorting from '../../components/sorting/sorting';
-// import { sortOffers } from '../../utils/sort-offers';
 import Preloader from '../../components/preloader/preloader';
 import {
   getCurrentCity,
   getCurrentCitySortedOffers,
-  // getCurrentSortOffersBy,
   getIsOffersLoading,
-  // getOffers,
 } from '../../store/offer-process/selectors';
+import ResultsEmpty from '../../components/results-empty/results-empty';
 
 function HomePage(): JSX.Element {
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
   const isOffersLoading = useAppSelector(getIsOffersLoading);
   const currentCity = useAppSelector(getCurrentCity);
-  // const offers = useAppSelector(getOffers);
-  // const currentSortOffersBy = useAppSelector(getCurrentSortOffersBy);
-  // let currentCityOffers = offers.filter(
-  //   (offer) => offer.city.name === currentCity.name
-  // );
-  // currentCityOffers = sortOffers(currentCityOffers, currentSortOffersBy);
   const currentCityOffers = useAppSelector(getCurrentCitySortedOffers);
 
   const handleCardMouseHover = useCallback((offerId: number | null) => {
     setActiveCardId(offerId);
-  },[]);
+  }, []);
 
   return (
     <div
@@ -52,7 +44,7 @@ function HomePage(): JSX.Element {
           </section>
         </div>
         <div className='cities'>
-          {currentCityOffers.length && (
+          {currentCityOffers.length ? (
             <div className='cities__places-container container'>
               <section className='cities__places places'>
                 <h2 className='visually-hidden'>Places</h2>
@@ -80,20 +72,8 @@ function HomePage(): JSX.Element {
                 />
               </div>
             </div>
-          )}
-          {!currentCityOffers.length && (
-            <div className='cities__places-container cities__places-container--empty container'>
-              <section className='cities__no-places'>
-                <div className='cities__status-wrapper tabs__content'>
-                  <b className='cities__status'>No places to stay available</b>
-                  <p className='cities__status-description'>
-                    We could not find any property available at the moment in{' '}
-                    {currentCity.name}
-                  </p>
-                </div>
-              </section>
-              <div className='cities__right-section'></div>
-            </div>
+          ) : (
+            <ResultsEmpty currentCity={currentCity} />
           )}
         </div>
       </main>

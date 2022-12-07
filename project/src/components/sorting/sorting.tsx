@@ -7,6 +7,7 @@ import { setSortOffersByAction } from '../../store/offer-process/offer-process';
 import { getCurrentSortOffersBy } from '../../store/offer-process/selectors';
 
 function Sorting(): JSX.Element {
+
   const dispatch = useAppDispatch();
   const activeSortOffersBy = useAppSelector(getCurrentSortOffersBy);
   const [isSortOpen, setSortOpen] = useState<boolean>(false);

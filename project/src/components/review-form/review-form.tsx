@@ -1,20 +1,29 @@
-import { ChangeEvent, Fragment, useState } from 'react';
+import { ChangeEvent, Fragment, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import useAppDispatch from '../../hooks/useAppDispatch';
+import useAppSelector from '../../hooks/useAppSelector';
 import { postNewReviewAction } from '../../store/api-actions';
+import { getIsPostingNewReview, getIsPostingNewReviewError } from '../../store/review-process/selectors';
 
 type ReviewFormProps = {
   offerId: number;
 };
 
 function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
+
   const dispatch = useAppDispatch();
+  const isPostingNewReview = useAppSelector(getIsPostingNewReview);
+  const isPostingNewReviewError = useAppSelector(getIsPostingNewReviewError);
   const [reviewFormData, setReviewFormData] = useState({
     rating: 0,
     review: '',
   });
-  const ratingArr: number[] = Array.from({ length: 5 }, (_, i) => i + 1).reverse();
+  const ratingArr: number[] = Array.from(
+    { length: 5 },
+    (_, i) => i + 1
+  ).reverse();
   const [isButtonDisabled, setButtonDisabled] = useState(true);
+  const formRef = useRef<HTMLFormElement>(null);
 
   function handleFieldChange({
     target,
@@ -42,10 +51,18 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
         rating: Number(reviewFormData.rating),
       })
     );
+
+    if (isPostingNewReviewError) {
+      toast.warn('Error: cannot post a new review');
+      return;
+    }
+
     setReviewFormData({
       rating: 0,
-      review: ''
+      review: '',
     });
+    formRef.current && formRef.current.reset();
+
     setButtonDisabled(true);
   }
 
@@ -55,6 +72,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
       action='#'
       method='post'
       onSubmit={handleReviewFormSubmit}
+      ref={formRef}
     >
       <label className='reviews__label form__label' htmlFor='review'>
         Your review
@@ -70,6 +88,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
               type='radio'
               onChange={handleFieldChange}
               checked={i === Number(reviewFormData.rating)}
+              disabled={isPostingNewReview}
             />
             <label
               htmlFor={`${i}-stars`}
@@ -90,6 +109,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
         placeholder='Tell how was your stay, what you like and what can be improved'
         onChange={handleFieldChange}
         value={reviewFormData.review}
+        disabled={isPostingNewReview}
       >
       </textarea>
       <div className='reviews__button-wrapper'>

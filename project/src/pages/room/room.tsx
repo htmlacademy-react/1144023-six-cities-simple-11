@@ -16,7 +16,7 @@ import {
   fetchOffersNearbyAction,
 } from '../../store/api-actions';
 import Preloader from '../../components/preloader/preloader';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, MAX_PHOTOS_COUNT } from '../../const';
 import { getCurrentOffer, getOffersNearby } from '../../store/offer-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getCurrentOfferSortedReviews } from '../../store/review-process/selectors';
@@ -54,7 +54,7 @@ function Room(): JSX.Element {
         <section className='property'>
           <div className='property__gallery-container container'>
             <div className='property__gallery'>
-              {currentOffer.images?.map((img) => (
+              {currentOffer.images?.slice(0,MAX_PHOTOS_COUNT).map((img) => (
                 <div className='property__image-wrapper' key={img}>
                   <img
                     className='property__image'

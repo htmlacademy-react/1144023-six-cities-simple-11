@@ -15,7 +15,7 @@ import {
 } from '../../store/offer-process/selectors';
 import ResultsEmpty from '../../components/results-empty/results-empty';
 
-function HomePage(): JSX.Element {
+function Homepage(): JSX.Element {
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
   const isOffersLoading = useAppSelector(getIsOffersLoading);
   const currentCity = useAppSelector(getCurrentCity);
@@ -81,4 +81,4 @@ function HomePage(): JSX.Element {
   );
 }
 
-export default HomePage;
+export default Homepage;

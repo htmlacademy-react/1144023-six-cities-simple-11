@@ -105,3 +105,10 @@ export enum NameSpace {
   Review = 'REVIEW',
   User = 'USER',
 }
+
+export const MAX_REVIEWS_COUNT = 10;
+export const MAX_PHOTOS_COUNT = 6;
+export const MARKER_SIZE = [27, 39];
+export const MARKER_ANCHOR = [20, 40];
+export const MARKER_URL_DEFAULT = 'img/pin.svg';
+export const MARKER_URL_ACTIVE = 'img/pin-active.svg';

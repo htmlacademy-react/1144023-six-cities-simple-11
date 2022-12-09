@@ -5,6 +5,7 @@ import useMap from '../../hooks/useMap';
 import { CityType } from '../../types/city';
 import { OfferType } from '../../types/offer';
 import cn from 'classnames';
+import { MARKER_ANCHOR, MARKER_SIZE, MARKER_URL_ACTIVE, MARKER_URL_DEFAULT } from '../../const';
 
 type MapProps = {
   city: CityType;
@@ -15,15 +16,15 @@ type MapProps = {
 };
 
 const defaultCustomIcon = new Icon({
-  iconUrl: '/img/pin.svg',
-  iconSize: [27, 39],
-  iconAnchor: [20, 40],
+  iconUrl: MARKER_URL_DEFAULT,
+  iconSize: [MARKER_SIZE[0], MARKER_SIZE[1]],
+  iconAnchor: [MARKER_ANCHOR[0], MARKER_ANCHOR[1]],
 });
 
 const activeCustomIcon = new Icon({
-  iconUrl: '/img/pin-active.svg',
-  iconSize: [27, 39],
-  iconAnchor: [20, 40],
+  iconUrl: MARKER_URL_ACTIVE,
+  iconSize: [MARKER_SIZE[0], MARKER_SIZE[1]],
+  iconAnchor: [MARKER_ANCHOR[0], MARKER_ANCHOR[1]],
 });
 
 function Map({

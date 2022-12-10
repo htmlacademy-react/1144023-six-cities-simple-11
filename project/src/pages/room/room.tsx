@@ -92,10 +92,10 @@ function Room(): JSX.Element {
                   {currentOffer.type}
                 </li>
                 <li className='property__feature property__feature--bedrooms'>
-                  {currentOffer.maxAdults} Bedrooms
+                  {currentOffer.bedrooms} {currentOffer.bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
                 </li>
                 <li className='property__feature property__feature--adults'>
-                  Max {currentOffer.maxAdults} adults
+                  Max {currentOffer.maxAdults} {currentOffer.maxAdults > 1 ? 'adults' : 'adult'}
                 </li>
               </ul>
               <div className='property__price'>
